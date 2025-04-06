@@ -1,8 +1,22 @@
 import 'dotenv/config';
+import app from './app.js';
 
 import connectDB from './db/connectDB.js'
 
-connectDB();
+connectDB()
+.then(()=>{
+    app.on("error",(error)=>{
+        console.log("Error:",error);
+    })
+})
+.then(()=>{
+    app.listen(()=>{
+        console.log(`Server running successfully at: http://localhost:${process.env.PORT}`)
+    })
+})
+.catch((error)=>{
+    console.log("Error:",error);
+});
 
 
 // (async ()=>{
