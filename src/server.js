@@ -10,7 +10,7 @@ connectDB()
     })
 })
 .then(()=>{
-    app.listen(()=>{
+    app.listen(process.env.PORT,()=>{
         console.log(`Server running successfully at: http://localhost:${process.env.PORT}`)
     })
 })
