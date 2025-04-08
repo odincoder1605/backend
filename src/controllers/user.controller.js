@@ -5,7 +5,7 @@ import {uploadOnCloudinary} from '../utils/cloudinary.js'
 import ApiResponse from '../utils/apiResponse.js' 
 
 
-const registerUser = asyncHandler((req,res) =>{
+const registerUser = asyncHandler(async (req,res) =>{
     const {fullName, email, password, username} = req.body; // taking data from frontend
 
     // validating data
@@ -28,7 +28,12 @@ const registerUser = asyncHandler((req,res) =>{
     // Uploading files on Cloundinary
 
     const avatarLocalPath = req.files?.avatar[0]?.path;
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+
+    let coverImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+        coverImageLocalPath = req.files.coverImage[0].path;
+    }
 
     if(!avatarLocalPath){
         throw new ApiError(400, "Avatar file is required");
